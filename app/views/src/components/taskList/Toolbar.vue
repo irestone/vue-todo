@@ -7,14 +7,14 @@
     <v-select
       prefix="Sort by: "
       v-model="dateOrder"
-      :items="orders.date"
+      :items="dateOrders"
       hide-details
       class="toolbar-selector--date"
     ></v-select>
     <v-select
       prefix="Completed tasks: "
       v-model="completedOrder"
-      :items="orders.completed"
+      :items="completedOrders"
       hide-details
       class="toolbar-selector--completed"
     ></v-select>
@@ -22,27 +22,41 @@
 </template>
 
 <script>
-const orders = {
-  date: [
-    { text: 'Newest', value: 'newest' },
-    { text: 'Oldest', value: 'oldest' },
-  ],
-  completed: [
-    { text: 'Show', value: 'show' },
-    { text: 'Show first', value: 'show_first' },
-    { text: 'Show last', value: 'show_last' },
-    { text: 'Hide', value: 'hide' },
-  ],
-}
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Toolbar',
-  data: () => ({
-    orders,
-    dateOrder: orders.date[0],
-    completedOrder: orders.completed[0],
-  }),
   computed: {
+    dateOrders() {
+      return this.$store.state.ui.sortingOrders.date.map(([value, text]) => ({
+        value,
+        text,
+      }))
+    },
+    completedOrders() {
+      return this.$store.state.ui.sortingOrders.completed.map(
+        ([value, text]) => ({
+          value,
+          text,
+        })
+      )
+    },
+    dateOrder: {
+      get() {
+        return this.$store.state.ui.sorting.date
+      },
+      set(value) {
+        this.sortBy({ date: value })
+      },
+    },
+    completedOrder: {
+      get() {
+        return this.$store.state.ui.sorting.completed
+      },
+      set(value) {
+        this.sortBy({ completed: value })
+      },
+    },
     tasksCount() {
       return Object.keys(this.$store.state.tasks.data).length
     },
@@ -53,6 +67,7 @@ export default {
       )
     },
   },
+  methods: mapActions(['sortBy']),
 }
 </script>
 
