@@ -12,7 +12,7 @@
       class="toolbar-selector--date"
     ></v-select>
     <v-select
-      prefix="Completed tasks: "
+      prefix="Completed: "
       v-model="completedOrder"
       :items="completedOrders"
       hide-details
@@ -58,13 +58,10 @@ export default {
       },
     },
     tasksCount() {
-      return Object.keys(this.$store.state.tasks.data).length
+      return this.$store.getters.allTasks.length
     },
     completedTasksCount() {
-      return Object.values(this.$store.state.tasks.data).reduce(
-        (count, { isCompleted }) => (isCompleted ? count + 1 : count),
-        0
-      )
+      return this.$store.getters.completedTasks.length
     },
   },
   methods: mapActions(['sortBy']),
@@ -77,7 +74,7 @@ export default {
 }
 
 .toolbar-selector--completed {
-  width: 6em;
+  width: 2em;
   margin-left: 1em;
 }
 </style>
