@@ -3,7 +3,7 @@
     <v-content>
       <v-container>
         <v-row justify="center" no-gutters>
-          <v-col sm="8" lg="6">
+          <v-col md="10" lg="8" xl="6">
             <router-view></router-view>
           </v-col>
         </v-row>
