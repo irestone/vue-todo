@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import Toolbar from './taskList/Toolbar'
 
 export default {
@@ -58,7 +58,11 @@ export default {
   data: () => ({
     editing: null,
   }),
-  computed: mapState({ tasks: (state) => state.tasks.data }),
+  computed: {
+    tasks() {
+      return this.$store.getters.sortedTasks
+    },
+  },
   methods: {
     edit(task) {
       this.editing = task
