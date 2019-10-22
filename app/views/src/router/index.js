@@ -10,9 +10,14 @@ const routes = [
     component: () => import('../views/Home.vue'),
   },
   {
-    path: '/:page',
+    path: '/page/:page',
     name: 'page',
     component: () => import('../views/Home.vue'),
+  },
+  {
+    path: '*',
+    name: 'notFound',
+    component: () => import('../views/NotFound.vue'),
   },
 ]
 

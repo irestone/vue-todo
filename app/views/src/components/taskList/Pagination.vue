@@ -27,7 +27,7 @@ export default {
   methods: {
     go(page) {
       this.page = page
-      this.$router.push(`/${page === 1 ? '' : page}`)
+      this.$router.push(page === 1 ? `/` : `/page/${page}`)
     },
   },
 }
