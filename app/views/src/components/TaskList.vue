@@ -45,16 +45,18 @@
         </v-list-item-action>
       </v-list-item>
     </v-list>
+    <Pagination />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import Toolbar from './taskList/Toolbar'
+import Pagination from './taskList/Pagination'
 
 export default {
   name: 'TaskList',
-  components: { Toolbar },
+  components: { Toolbar, Pagination },
   data: () => ({
     editing: null,
   }),
