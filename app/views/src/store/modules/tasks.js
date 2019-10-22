@@ -54,6 +54,12 @@ export const tasks = {
 
       return sortingQueue.map(sort).flat()
     },
+    tasksOfPage(_, { sortedTasks }, { route, ui }) {
+      const page = parseInt(route.params.page) || 1
+      const end = page * ui.tasksPerPage
+      const start = end - ui.tasksPerPage
+      return sortedTasks.slice(start, end)
+    },
   },
   actions: {
     async createTask({ commit }, text) {

@@ -10,7 +10,7 @@ export const ui = {
       ],
     },
     sorting: { date: 'newest', completed: 'show' },
-    tasksPerPage: 2,
+    tasksPerPage: 10,
   },
   mutations: {
     setSorting(state, order) {

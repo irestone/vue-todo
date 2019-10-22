@@ -3,7 +3,7 @@
     <Toolbar />
     <v-list>
       <v-list-item
-        v-for="task in tasks"
+        v-for="task in tasksOfPage"
         :key="task._id"
         :class="{ 'grey lighten-4': task.isCompleted }"
       >
@@ -45,12 +45,12 @@
         </v-list-item-action>
       </v-list-item>
     </v-list>
-    <Pagination />
+    <Pagination v-if="needPagination" />
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Toolbar from './taskList/Toolbar'
 import Pagination from './taskList/Pagination'
 
@@ -61,8 +61,9 @@ export default {
     editing: null,
   }),
   computed: {
-    tasks() {
-      return this.$store.getters.sortedTasks
+    ...mapGetters(['tasksOfPage', 'sortedTasks']),
+    needPagination() {
+      return this.sortedTasks.length > this.$store.state.ui.tasksPerPage
     },
   },
   methods: {
